@@ -1109,7 +1109,7 @@ class Ui_MainWindow(object):
         self.pushButton_15.setText(_translate("MainWindow", "清零"))
         self.pushButton.setStatusTip(_translate("MainWindow", "开始后，你将有几秒钟时间选择起始位置"))
         self.pushButton.setText(_translate("MainWindow", "开始\n"
-"填写"))
+                                                         "填写"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Auto"))
         self.pushButton_39.setText(_translate("MainWindow", "信息："))
         self.pushButton_46.setStatusTip(_translate("MainWindow", "获取Sample ID以六价铬格式生成TXT格式"))

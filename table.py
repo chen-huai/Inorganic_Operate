@@ -1,9 +1,10 @@
-from PyQt5.QtWidgets import QWidget,QHBoxLayout,QTableWidget,QPushButton,QApplication,QVBoxLayout,QTableWidgetItem,QCheckBox,QAbstractItemView,QHeaderView,QLabel,QFrame
-from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont,QColor
-# from faker import Factory
-import random
+# from PyQt5.QtWidgets import QWidget, QHBoxLayout, QTableWidget, QPushButton, QApplication, QVBoxLayout, \
+# QTableWidgetItem, QCheckBox, QAbstractItemView, QHeaderView, QLabel, QFrame
+# from PyQt5 import QtWidgets
+# from PyQt5.QtCore import Qt
+# from PyQt5.QtGui import QFont, QColor
+# # from faker import Factory
+# import random
 import sys
 # from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow
@@ -12,11 +13,12 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 import chicon  # 引用图标
 from Reach_Operate_Ui import *
 from Table_Ui import *
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore
 import pandas as pd
 
-class PandasModel(QMainWindow, Ui_TableWindow,QtCore.QAbstractTableModel):
-    def __init__(self, df = pd.DataFrame(), parent=None):
+
+class PandasModel(QMainWindow, Ui_TableWindow, QtCore.QAbstractTableModel):
+    def __init__(self, df=pd.DataFrame(), parent=None):
         super(PandasModel, self).__init__(parent)
         self.setupUi(self)
         # QtCore.QAbstractTableModel.__init__(self, parent=parent)
@@ -32,13 +34,13 @@ class PandasModel(QMainWindow, Ui_TableWindow,QtCore.QAbstractTableModel):
         if orientation == QtCore.Qt.Horizontal:
             try:
                 return self._df.columns.tolist()[section]
-            except (IndexError, ):
+            except (IndexError,):
                 return QtCore.QVariant()
         elif orientation == QtCore.Qt.Vertical:
             try:
                 # return self.df.index.tolist()
                 return self._df.index.tolist()[section]
-            except (IndexError, ):
+            except (IndexError,):
                 return QtCore.QVariant()
 
     def data(self, index, role=QtCore.Qt.DisplayRole):
@@ -73,7 +75,7 @@ class PandasModel(QMainWindow, Ui_TableWindow,QtCore.QAbstractTableModel):
     def sort(self, column, order):
         colname = self._df.columns.tolist()[column]
         self.layoutAboutToBeChanged.emit()
-        self._df.sort_values(colname, ascending= order == QtCore.Qt.AscendingOrder, inplace=True)
+        self._df.sort_values(colname, ascending=order == QtCore.Qt.AscendingOrder, inplace=True)
         self._df.reset_index(inplace=True, drop=True)
         self.layoutChanged.emit()
 
@@ -83,6 +85,7 @@ class PandasModel(QMainWindow, Ui_TableWindow,QtCore.QAbstractTableModel):
         df = pd.read_csv(path)
         model = PandasModel(df)
         self.tableView.setModel(model)
+
 
 if __name__ == '__main__':
     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
