@@ -1,6 +1,6 @@
 # import sys
 # from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox, QFileDialog, QMainWindow, QApplication, QItemDelegate, QTableWidgetItem
+from PyQt5.QtWidgets import QMessageBox, QFileDialog, QMainWindow, QApplication, QItemDelegate, QTableWidgetItem, QInputDialog
 from PyQt5.QtCore import pyqtSlot
 # from PyQt5.QtWidgets import *
 # from PyQt5.QtCore import *
