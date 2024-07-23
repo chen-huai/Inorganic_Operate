@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>559</width>
-    <height>500</height>
+    <width>827</width>
+    <height>611</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>操作界面</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icon/chicon.qrc">
+   <iconset resource="chicon.qrc">
     <normaloff>:/ch.ico</normaloff>:/ch.ico</iconset>
   </property>
   <property name="statusTip">
@@ -32,7 +32,7 @@
          </font>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>4</number>
         </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
@@ -105,14 +105,14 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>icon/open.png</normaloff>
+              <normaloff>../../../Users/chen-fr/.designer/backup/icon/open.png</normaloff>
               <normalon>:/open.png</normalon>
               <disabledoff>:/open.png</disabledoff>
               <disabledon>:/open.png</disabledon>
               <activeoff>:/open.png</activeoff>
               <activeon>:/open.png</activeon>
               <selectedoff>:/open.png</selectedoff>
-              <selectedon>:/open.png</selectedon>icon/open.png</iconset>
+              <selectedon>:/open.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/open.png</iconset>
             </property>
            </widget>
           </item>
@@ -267,14 +267,14 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>icon/open.png</normaloff>
+              <normaloff>../../../Users/chen-fr/.designer/backup/icon/open.png</normaloff>
               <normalon>:/open.png</normalon>
               <disabledoff>:/open.png</disabledoff>
               <disabledon>:/open.png</disabledon>
               <activeoff>:/open.png</activeoff>
               <activeon>:/open.png</activeon>
               <selectedoff>:/open.png</selectedoff>
-              <selectedon>:/open.png</selectedon>icon/open.png</iconset>
+              <selectedon>:/open.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/open.png</iconset>
             </property>
            </widget>
           </item>
@@ -681,14 +681,14 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>icon/search.png</normaloff>
+              <normaloff>../../../Users/chen-fr/.designer/backup/icon/search.png</normaloff>
               <normalon>:/search.png</normalon>
               <disabledoff>:/search.png</disabledoff>
               <disabledon>:/search.png</disabledon>
               <activeoff>:/search.png</activeoff>
               <activeon>:/search.png</activeon>
               <selectedoff>:/search.png</selectedoff>
-              <selectedon>:/search.png</selectedon>icon/search.png</iconset>
+              <selectedon>:/search.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/search.png</iconset>
             </property>
            </widget>
           </item>
@@ -718,14 +718,14 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>icon/clean.png</normaloff>
-              <normalon>icon/clean.png</normalon>
-              <disabledoff>icon/clean.png</disabledoff>
-              <disabledon>icon/clean.png</disabledon>
-              <activeoff>icon/clean.png</activeoff>
-              <activeon>icon/clean.png</activeon>
-              <selectedoff>icon/clean.png</selectedoff>
-              <selectedon>icon/clean.png</selectedon>icon/clean.png</iconset>
+              <normaloff>../../../Users/chen-fr/.designer/backup/icon/clean.png</normaloff>
+              <normalon>../../../Users/chen-fr/.designer/backup/icon/clean.png</normalon>
+              <disabledoff>../../../Users/chen-fr/.designer/backup/icon/clean.png</disabledoff>
+              <disabledon>../../../Users/chen-fr/.designer/backup/icon/clean.png</disabledon>
+              <activeoff>../../../Users/chen-fr/.designer/backup/icon/clean.png</activeoff>
+              <activeon>../../../Users/chen-fr/.designer/backup/icon/clean.png</activeon>
+              <selectedoff>../../../Users/chen-fr/.designer/backup/icon/clean.png</selectedoff>
+              <selectedon>../../../Users/chen-fr/.designer/backup/icon/clean.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/clean.png</iconset>
             </property>
            </widget>
           </item>
@@ -739,14 +739,14 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>icon/message.png</normaloff>
+              <normaloff>../../../Users/chen-fr/.designer/backup/icon/message.png</normaloff>
               <normalon>:/message.png</normalon>
               <disabledoff>:/message.png</disabledoff>
               <disabledon>:/message.png</disabledon>
               <activeoff>:/message.png</activeoff>
               <activeon>:/message.png</activeon>
               <selectedoff>:/message.png</selectedoff>
-              <selectedon>:/message.png</selectedon>icon/message.png</iconset>
+              <selectedon>:/message.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/message.png</iconset>
             </property>
            </widget>
           </item>
@@ -1067,14 +1067,14 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>icon/open.png</normaloff>
+              <normaloff>../../../Users/chen-fr/.designer/backup/icon/open.png</normaloff>
               <normalon>:/open.png</normalon>
               <disabledoff>:/open.png</disabledoff>
               <disabledon>:/open.png</disabledon>
               <activeoff>:/open.png</activeoff>
               <activeon>:/open.png</activeon>
               <selectedoff>:/open.png</selectedoff>
-              <selectedon>:/open.png</selectedon>icon/open.png</iconset>
+              <selectedon>:/open.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/open.png</iconset>
             </property>
            </widget>
           </item>
@@ -1102,14 +1102,14 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>icon/stop.png</normaloff>
+              <normaloff>../../../Users/chen-fr/.designer/backup/icon/stop.png</normaloff>
               <normalon>:/stop.png</normalon>
               <disabledoff>:/stop.png</disabledoff>
               <disabledon>:/stop.png</disabledon>
               <activeoff>:/stop.png</activeoff>
               <activeon>:/stop.png</activeon>
               <selectedoff>:/stop.png</selectedoff>
-              <selectedon>:/stop.png</selectedon>icon/stop.png</iconset>
+              <selectedon>:/stop.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/stop.png</iconset>
             </property>
            </widget>
           </item>
@@ -1170,14 +1170,14 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>icon/random.png</normaloff>
+              <normaloff>../../../Users/chen-fr/.designer/backup/icon/random.png</normaloff>
               <normalon>:/random.png</normalon>
               <disabledoff>:/random.png</disabledoff>
               <disabledon>:/random.png</disabledon>
               <activeoff>:/random.png</activeoff>
               <activeon>:/random.png</activeon>
               <selectedoff>:/random.png</selectedoff>
-              <selectedon>:/random.png</selectedon>icon/random.png</iconset>
+              <selectedon>:/random.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/random.png</iconset>
             </property>
            </widget>
           </item>
@@ -1205,14 +1205,14 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>icon/clean.png</normaloff>
+              <normaloff>../../../Users/chen-fr/.designer/backup/icon/clean.png</normaloff>
               <normalon>:/clean.png</normalon>
               <disabledoff>:/clean.png</disabledoff>
               <disabledon>:/clean.png</disabledon>
               <activeoff>:/clean.png</activeoff>
               <activeon>:/clean.png</activeon>
               <selectedoff>:/clean.png</selectedoff>
-              <selectedon>:/clean.png</selectedon>icon/clean.png</iconset>
+              <selectedon>:/clean.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/clean.png</iconset>
             </property>
            </widget>
           </item>
@@ -1241,14 +1241,14 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>icon/star.png</normaloff>
+              <normaloff>../../../Users/chen-fr/.designer/backup/icon/star.png</normaloff>
               <normalon>:/star.png</normalon>
               <disabledoff>:/open.png</disabledoff>
               <disabledon>:/open.png</disabledon>
               <activeoff>:/open.png</activeoff>
               <activeon>:/open.png</activeon>
               <selectedoff>:/open.png</selectedoff>
-              <selectedon>:/open.png</selectedon>icon/star.png</iconset>
+              <selectedon>:/open.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/star.png</iconset>
             </property>
            </widget>
           </item>
@@ -1420,14 +1420,14 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>icon/open.png</normaloff>
+              <normaloff>../../../Users/chen-fr/.designer/backup/icon/open.png</normaloff>
               <normalon>:/open.png</normalon>
               <disabledoff>:/open.png</disabledoff>
               <disabledon>:/open.png</disabledon>
               <activeoff>:/open.png</activeoff>
               <activeon>:/open.png</activeon>
               <selectedoff>:/open.png</selectedoff>
-              <selectedon>:/open.png</selectedon>icon/open.png</iconset>
+              <selectedon>:/open.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/open.png</iconset>
             </property>
            </widget>
           </item>
@@ -1526,14 +1526,14 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>icon/open.png</normaloff>
+              <normaloff>../../../Users/chen-fr/.designer/backup/icon/open.png</normaloff>
               <normalon>:/open.png</normalon>
               <disabledoff>:/open.png</disabledoff>
               <disabledon>:/open.png</disabledon>
               <activeoff>:/open.png</activeoff>
               <activeon>:/open.png</activeon>
               <selectedoff>:/open.png</selectedoff>
-              <selectedon>:/open.png</selectedon>icon/open.png</iconset>
+              <selectedon>:/open.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/open.png</iconset>
             </property>
            </widget>
           </item>
@@ -1645,6 +1645,131 @@
           </item>
          </layout>
         </widget>
+        <widget class="QWidget" name="tab_5">
+         <attribute name="title">
+          <string>Tlims</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_8">
+          <item row="1" column="0">
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string>Message</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_7">
+             <item row="0" column="0">
+              <widget class="QTextBrowser" name="textBrowser_6"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QGroupBox" name="groupBox">
+            <property name="title">
+             <string>Operate</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_6">
+             <item row="2" column="0">
+              <widget class="QCheckBox" name="checkBox">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="text">
+                <string>重复</string>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QCheckBox" name="checkBox_2">
+               <property name="text">
+                <string>QC</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="4">
+              <widget class="QPushButton" name="pushButton_58">
+               <property name="text">
+                <string>Export pH Batch</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="4">
+              <widget class="QPushButton" name="pushButton_57">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Export Batch</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="4">
+              <widget class="QPushButton" name="pushButton_59">
+               <property name="text">
+                <string>Get Tlims Batch</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="checkBox_3">
+               <property name="text">
+                <string>质控</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="2">
+              <widget class="QSpinBox" name="spinBox_7">
+               <property name="value">
+                <number>20</number>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="3">
+              <widget class="QLineEdit" name="lineEdit_7">
+               <property name="text">
+                <string>CQC</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2" colspan="2">
+              <widget class="QLineEdit" name="lineEdit_2">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>;A;B</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2" colspan="2">
+              <widget class="QLineEdit" name="lineEdit_3">
+               <property name="text">
+                <string>BLK;BLK-S;S-S</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </widget>
       </item>
       <item>
@@ -1676,7 +1801,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>559</width>
+     <width>827</width>
      <height>23</height>
     </rect>
    </property>
@@ -1706,14 +1831,14 @@
   <action name="actionExport">
    <property name="icon">
     <iconset>
-     <normaloff>icon/export.png</normaloff>
+     <normaloff>../../../Users/chen-fr/.designer/backup/icon/export.png</normaloff>
      <normalon>:/export.png</normalon>
      <disabledoff>:/export.png</disabledoff>
      <disabledon>:/export.png</disabledon>
      <activeoff>:/export.png</activeoff>
      <activeon>:/export.png</activeon>
      <selectedoff>:/export.png</selectedoff>
-     <selectedon>:/export.png</selectedon>icon/export.png</iconset>
+     <selectedon>:/export.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/export.png</iconset>
    </property>
    <property name="text">
     <string>Export</string>
@@ -1736,14 +1861,14 @@
   <action name="actionExit">
    <property name="icon">
     <iconset>
-     <normaloff>icon/exit.png</normaloff>
+     <normaloff>../../../Users/chen-fr/.designer/backup/icon/exit.png</normaloff>
      <normalon>:/exit.png</normalon>
      <disabledoff>:/exit.png</disabledoff>
      <disabledon>:/exit.png</disabledon>
      <activeoff>:/exit.png</activeoff>
      <activeon>:/exit.png</activeon>
      <selectedoff>:/exit.png</selectedoff>
-     <selectedon>:/exit.png</selectedon>icon/exit.png</iconset>
+     <selectedon>:/exit.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/exit.png</iconset>
    </property>
    <property name="text">
     <string>Exit</string>
@@ -1755,14 +1880,14 @@
   <action name="actionImport">
    <property name="icon">
     <iconset>
-     <normaloff>icon/import.png</normaloff>
+     <normaloff>../../../Users/chen-fr/.designer/backup/icon/import.png</normaloff>
      <normalon>:/import.png</normalon>
      <disabledoff>:/import.png</disabledoff>
      <disabledon>:/import.png</disabledon>
      <activeoff>:/import.png</activeoff>
      <activeon>:/import.png</activeon>
      <selectedoff>:/import.png</selectedoff>
-     <selectedon>:/import.png</selectedon>icon/import.png</iconset>
+     <selectedon>:/import.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/import.png</iconset>
    </property>
    <property name="text">
     <string>Import</string>
@@ -1782,14 +1907,14 @@
   <action name="actionHelp">
    <property name="icon">
     <iconset>
-     <normaloff>icon/help.png</normaloff>
+     <normaloff>../../../Users/chen-fr/.designer/backup/icon/help.png</normaloff>
      <normalon>:/help.png</normalon>
      <disabledoff>:/help.png</disabledoff>
      <disabledon>:/help.png</disabledon>
      <activeoff>:/help.png</activeoff>
      <activeon>:/help.png</activeon>
      <selectedoff>:/help.png</selectedoff>
-     <selectedon>:/help.png</selectedon>icon/help.png</iconset>
+     <selectedon>:/help.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/help.png</iconset>
    </property>
    <property name="text">
     <string>Help</string>
@@ -1801,14 +1926,14 @@
   <action name="actionAuthor">
    <property name="icon">
     <iconset>
-     <normaloff>icon/author.png</normaloff>
-     <normalon>icon/author.png</normalon>
-     <disabledoff>icon/author.png</disabledoff>
-     <disabledon>icon/author.png</disabledon>
-     <activeoff>icon/author.png</activeoff>
-     <activeon>icon/author.png</activeon>
-     <selectedoff>icon/author.png</selectedoff>
-     <selectedon>icon/author.png</selectedon>icon/author.png</iconset>
+     <normaloff>../../../Users/chen-fr/.designer/backup/icon/author.png</normaloff>
+     <normalon>../../../Users/chen-fr/.designer/backup/icon/author.png</normalon>
+     <disabledoff>../../../Users/chen-fr/.designer/backup/icon/author.png</disabledoff>
+     <disabledon>../../../Users/chen-fr/.designer/backup/icon/author.png</disabledon>
+     <activeoff>../../../Users/chen-fr/.designer/backup/icon/author.png</activeoff>
+     <activeon>../../../Users/chen-fr/.designer/backup/icon/author.png</activeon>
+     <selectedoff>../../../Users/chen-fr/.designer/backup/icon/author.png</selectedoff>
+     <selectedon>../../../Users/chen-fr/.designer/backup/icon/author.png</selectedon>../../../Users/chen-fr/.designer/backup/icon/author.png</iconset>
    </property>
    <property name="text">
     <string>Author</string>
@@ -1824,7 +1949,7 @@
   </action>
  </widget>
  <resources>
-  <include location="icon/chicon.qrc"/>
+  <include location="chicon.qrc"/>
  </resources>
  <connections/>
 </ui>
