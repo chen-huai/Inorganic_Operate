@@ -1,12 +1,14 @@
 # import sys
 # from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox, QFileDialog, QMainWindow, QApplication, QItemDelegate, QTableWidgetItem, QInputDialog
+from PyQt5.QtWidgets import QMessageBox, QFileDialog, QMainWindow, QApplication, QItemDelegate, QTableWidgetItem, \
+    QInputDialog
 from PyQt5.QtCore import pyqtSlot
-# from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QLineEdit
 # from PyQt5.QtCore import *
 import chicon  # 引用图标
 from Inorganic_Operate_Ui import *
 from Table_Ui import *
+from Tlims_Data_Operate import *
 
 
 class MyMainWindow(QMainWindow, Ui_MainWindow):
@@ -71,6 +73,8 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
         self.pushButton_52.clicked.connect(lambda: self.phQc('pH 2018'))
         self.pushButton_48.clicked.connect(lambda: self.phQc('pH 2014'))
         self.pushButton_54.clicked.connect(self.crRecovery)
+        self.pushButton_59.clicked.connect(self.getTlimsBatchsUrl)
+        self.pushButton_57.clicked.connect(self.exportTlimsBatch)
 
     def getConfig(self):
         # 初始化，获取或生成配置文件
@@ -102,7 +106,8 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
         configFile = os.path.exists('%s/config_inorganic.csv' % configFileUrl)
         # print(desktopUrl,configFileUrl,configFile)
         if not configFile:  # 判断是否存在文件夹如果不存在则创建为文件夹
-            reply = QMessageBox.question(self, '信息', '确认是否要创建配置文件', QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+            reply = QMessageBox.question(self, '信息', '确认是否要创建配置文件', QMessageBox.Yes | QMessageBox.No,
+                                         QMessageBox.Yes)
             if reply == QMessageBox.Yes:
                 if not os.path.exists(configFileUrl):
                     os.makedirs(configFileUrl)
@@ -113,6 +118,7 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                 exit()
         else:
             MyMainWindow.getConfigContent(self)
+            MyMainWindow.getDefaultInformation(self)
 
     # def getConfigContent(self):
     # 	# 获取配置文件内容
@@ -193,7 +199,7 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
         for i in range(len(content)):
             configContent['%s' % content[i]] = rul[i]
         a = len(configContent)
-        if (int(configContent['config_num']) != len(configContent)) or (len(configContent) != 43):
+        if (int(configContent['config_num']) != len(configContent)) or (len(configContent) != 51):
             reply = QMessageBox.question(self, '信息', 'config文件配置缺少一些参数，是否重新创建并获取新的config文件',
                                          QMessageBox.Yes | QMessageBox.No,
                                          QMessageBox.Yes)
@@ -214,11 +220,13 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
         monthAbbrev = months[pos:pos + 3]
 
         configContent = [
-            ['config_num', '43', 'config文件条目数量,不能更改数值'],  # getConfigContent()中需要更改配置文件数量
+            ['config_num', '51', 'config文件条目数量,不能更改数值'],  # getConfigContent()中需要更改配置文件数量
             ['选择ICP_Batch的输入路径和输出路径', '默认，可更改为自己需要的', '以下ICP组Batch相关'],
-            ['ICP_Batch_Import_URL', 'Z:\\Inorganic_batch\\Microwave\\Batch', 'ICP的Batch引入路径，所有ICP组batch均为次路径'],
+            ['ICP_Batch_Import_URL', 'Z:\\Inorganic_batch\\Microwave\\Batch',
+             'ICP的Batch引入路径，所有ICP组batch均为次路径'],
             ['ICP_Batch_Export_URL', '%s' % desktopUrl, 'ICP仪器使用，一般为本机电脑桌面'],
-            ['ECO_Batch_Export_URL', 'Z:\\Data\\%s\\Subcon\\厦门质检院\\%s' % (now, monthAbbrev), 'ECO项目的导出路径(质检院或者中讯德)'],
+            ['ECO_Batch_Export_URL', 'Z:\\Data\\%s\\Subcon\\厦门质检院\\%s' % (now, monthAbbrev),
+             'ECO项目的导出路径(质检院或者中讯德)'],
             ['ECO_Batch_Export_NB_URL', 'Z:\\Data\\%s\\Subcon\\NB CHM\\%s' % (now, monthAbbrev),
              'ECO项目的导出路径，质检院格式(宁波)'],
             ['Nickel_Batch_Export_URL', 'Z:\\Inorganic_batch\\Microwave\\Result\\Nickel', '镍释放项目的导出路径'],
@@ -234,38 +242,54 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
              'NB-ICP OES组结果的引入路径，选择CSV结果文件'],
             ['NB_Result_Export_URL', 'Z:\\Data\\%s\\Subcon\\NB CHM\\NB Result\\%s' % (now, monthAbbrev),
              'NB-ICP OES组结果的导出路径，转化为TXT保存路径'],
-            ['AAS_Result_Import_URL', 'Z:\\Data\\%s\\66-01-2018-012-ICPOES 5110' % now, 'AAS组结果的引入路径，选择CSV结果文件'],
-            ['AAS_Result_Export_URL', 'Z:\\Data\\%s\\66-01-2018-012-ICPOES 5110' % now, 'AAS组结果的导出路径，转化为TXT保存路径'],
+            ['AAS_Result_Import_URL', 'Z:\\Data\\%s\\66-01-2018-012-ICPOES 5110' % now,
+             'AAS组结果的引入路径，选择CSV结果文件'],
+            ['AAS_Result_Export_URL', 'Z:\\Data\\%s\\66-01-2018-012-ICPOES 5110' % now,
+             'AAS组结果的导出路径，转化为TXT保存路径'],
             ['ECO_Result_Import_URL', 'Z:\\Data\\%s\\Subcon\\厦门质检院\\RawData' % now, 'ECO项目结果的引入路径'],
-            ['ECO_Result_Export_URL', 'Z:\\Data\\%s\\Subcon\\厦门质检院\\ZJY-Resuls' % now, 'ECO项目结果转化后的输出路径'],
+            ['ECO_Result_Export_URL', 'Z:\\Data\\%s\\Subcon\\厦门质检院\\ZJY-Resuls' % now,
+             'ECO项目结果转化后的输出路径'],
             ['ICP_QC_Chart_Import_URL', 'Z:\\QC Chart\\%s' % now, 'ICP OES仪器的QC-Chart路径'],
             ['ICP_QC_Chart_File_Name', 'QC_Chart_Heavy_Metal_66_01_2018_012.xlsx', 'ICP OES仪器的QC-Chart文件名'],
             ['Reach_Model_Import_URL', 'Z:\\Inorganic\\Program\\1.Inorganic Operate\\1.New edition\\2.Model',
              'Reach项目的模板路径'],
             ['Reach_Result_File_Name', 'SVHC_DCU.xlsx', 'Reach项目的模板文件名'],
-            ['Reach_Result_Export_URL', 'Z:\\Data\\%s\\66-01-2018-012-ICPOES 5110\\SVHC' % now, 'Reach项目结果转化后的导出路径'],
+            ['Reach_Result_Export_URL', 'Z:\\Data\\%s\\66-01-2018-012-ICPOES 5110\\SVHC' % now,
+             'Reach项目结果转化后的导出路径'],
             ['Reach_Message_Import_URL', 'Z:\\Inorganic\\Program\\1.Inorganic Operate\\1.New edition\\2.Model',
              'Reach-Message项目的模板路径'],
             ['Reach_Message_File_Name', 'REACH_SVHC_Candidate_List.csv', 'Reach-Message项目的模板文件名'],
             ['ICP_MS_Result_Import_URL', 'Z:\\Data\\%s\\66-01-2022-005-ICPMS 7850\\%s' % (now, monthAbbrev),
              'ICP-MS结果导入路径，选择CSV结果文件'],
             ['ICP_MS_QC_Chart_Import_URL', 'Z:\\QC Chart\\%s' % now, 'ICP MS仪器的QC-Chart路径'],
-            ['ICP_MS_QC_Chart_File_Name', 'QC_Chart_extractable Heavy Metal_2022_005V1.xlsx', 'ICP MS仪器的QC-Chart文件名'],
+            ['ICP_MS_QC_Chart_File_Name', 'QC_Chart_extractable Heavy Metal_2022_005V1.xlsx',
+             'ICP MS仪器的QC-Chart文件名'],
             ['选择UV_Batch的输入路径和输出路径', '默认，可更改为自己需要的', '以下UV组Batch相关'],
             ['UV_Batch_Import_URL', 'Z:\\Inorganic_batch\\Formaldehyde\\Batch', 'UV组的Batch引入路径'],
             ['UV_Batch_Export_URL', 'Z:\\Inorganic_batch\\Formaldehyde\\Batch', 'UV组的Batch转化后的导出路径'],
-            ['UV_Rusult_Export_URL', 'Z:\\Inorganic_batch\\Formaldehyde\\Result', 'UV组的Batch转化为DCU结果格式后的导出路径，主要针对pH'],
+            ['UV_Rusult_Export_URL', 'Z:\\Inorganic_batch\\Formaldehyde\\Result',
+             'UV组的Batch转化为DCU结果格式后的导出路径，主要针对pH'],
             ['选择UV_Result的输入路径和输出路径', '默认，可更改为自己需要的', '以下UV组Result相关'],
             ['UV_QC_Chart_Import_URL', 'Z:\\QC Chart\\%s' % now, 'UV组仪器的QC-Chart路径'],
             ['Formal_QC_Chart_File_Name', 'QC_Chart_HCHO_66_01_2016_051_CARY60.xlsx', '甲醛QC-Chart文件名'],
             ['Cr_VI_QC_Chart_File_Name', 'QC_Chart_Cr_66_01_2013_011_CARY100.xlsx', '六价铬QC-Chart文件名'],
             ['pH2014_QC_Chart_File_Name', 'QC_Chart_pH_66_01_2014_015.xlsx', 'pH2014-QC-Chart文件名'],
             ['pH2018_QC_Chart_File_Name', 'QC_Chart_pH_66_01_2018_006.xlsx', 'pH2018-QC-Chart文件名'],
-            ['Formal_Result_Import_URL', 'Z:\\Data\\%s\\66-01-2016-051 UV-Vis (60)\\Formal' % now, '甲醛结果的导入路径'],
-            ['Cr_VI_Result_Import_URL', 'Z:\\Data\\%s\\66-01-2013-011 UV-Vis (100)\\Cr-VI\\Data' % now, '六价铬结果的导入路径'],
+            ['Formal_Result_Import_URL', 'Z:\\Data\\%s\\66-01-2016-051 UV-Vis (60)\\Formal' % now,
+             '甲醛结果的导入路径'],
+            ['Cr_VI_Result_Import_URL', 'Z:\\Data\\%s\\66-01-2013-011 UV-Vis (100)\\Cr-VI\\Data' % now,
+             '六价铬结果的导入路径'],
             ['pH2014_Result_Import_URL', 'Z:\\Data\\%s\\66-01-2014-015 pH' % now, 'pH2014结果的导入路径'],
             ['pH2018_Result_Import_URL', 'Z:\\Data\\%s\\66-01-2018-006 pH' % now, 'pH2018结果的导入路径'],
-            ['pH_Result_Import_URL', 'C:\Data\pH CSV', '原始pH结果路径']
+            ['pH_Result_Import_URL', 'C:\\Data\\pH CSV', '原始pH结果路径'],
+            ['TLims_Repetition_Check', 1, 'TLims是否根据batch重复样品编号,1选中，0未选中'],
+            ['TLims_Repetition_Text', "A;B;C", 'TLims根据内容重复样品编号'],
+            ['TLims_QC_Check', 1, 'TLims是否添加QC,1选中，0未选中'],
+            ['TLims_QC_Msg', "CQC", 'TLims是否添加QC内容'],
+            ['TLims_Batch_Import_URL', "Z:\\Inorganic_batch\\Tlims Batch", 'TLims-Batch导入路径'],
+            ['TLims_Batch_Export_URL', "Z:\\Inorganic_batch\\Tlims已转换", 'TLims-Batch导出路径'],
+            ['TLims_Quality_Control_Check', 1, '质控样品,1选中，0未选中'],
+            ['TLims_Quality_Control_Sample', "BLK;BLK-S;S-S", '质控样品，自行填写，并用;间隔'],
         ]
         config = np.array(configContent)
         df = pd.DataFrame(config)
@@ -277,7 +301,8 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
 
     def exportConfig(self):
         # 重新导出默认配置文件
-        reply = QMessageBox.question(self, '信息', '确认是否要创建默认配置文件', QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+        reply = QMessageBox.question(self, '信息', '确认是否要创建默认配置文件', QMessageBox.Yes | QMessageBox.No,
+                                     QMessageBox.Yes)
         if reply == QMessageBox.Yes:
             MyMainWindow.createConfigContent(self)
         else:
@@ -285,9 +310,12 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
 
     def importConfig(self):
         # 重新导入配置文件
-        reply = QMessageBox.question(self, '信息', '确认是否要导入配置文件', QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+        reply = QMessageBox.question(self, '信息', '确认是否要导入配置文件', QMessageBox.Yes | QMessageBox.No,
+                                     QMessageBox.Yes)
         if reply == QMessageBox.Yes:
             MyMainWindow.getConfigContent(self)
+            MyMainWindow.getDefaultInformation(self)
+
         else:
             QMessageBox.information(self, "提示信息", "没有重新导入配置文件，将按照原有的配置文件操作", QMessageBox.Yes)
 
@@ -299,7 +327,30 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
     def showVersion(self):
         # 关于作者
         QMessageBox.about(self, "版本",
-                          "V 2.21.20\n\n\n     2021-11-26")
+                          "V 2.24.01\n\n\n     2024-05-27")
+
+    def getDefaultInformation(self):
+        # 默认登录TLims界面信息
+        try:
+            # data处理
+            self.checkBox.setChecked(int(configContent['TLims_Repetition_Check']))
+            self.checkBox_2.setChecked(int(configContent['TLims_QC_Check']))
+            self.checkBox_3.setChecked(int(configContent['TLims_Quality_Control_Check']))
+            self.lineEdit_2.setText(configContent['TLims_Repetition_Text'])
+            self.lineEdit_7.setText(configContent['TLims_QC_Msg'])
+            self.lineEdit_3.setText(configContent['TLims_Quality_Control_Sample'])
+        except Exception as msg:
+            self.textBrowser_6.append("错误信息：%s" % msg)
+            self.textBrowser_6.append('----------------------------------')
+            app.processEvents()
+            reply = QMessageBox.question(self, '信息', '错误信息：%s。\n是否要重新创建配置文件' % msg,
+                                         QMessageBox.Yes | QMessageBox.No,
+                                         QMessageBox.Yes)
+            if reply == QMessageBox.Yes:
+                MyMainWindow.createConfigContent(self)
+                self.textBrowser.append("创建并导入配置成功")
+                self.textBrowser_6.append('----------------------------------')
+                app.processEvents()
 
     def getBatch(self, messages):
         # 获取Sample ID 、实验方法、质量、体积
@@ -451,7 +502,7 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                         if '/' in each and '(B' not in each and '(C' not in each and '(D' not in each:
                             leaveNum.append(each)
                     csvFile = csvFile.loc[(csvFile[' Sample No.'].isin(leaveNum))]
-                    labNumbers = csvFile[' Sample No.'].str.replace("\(A\)", "")  # 替换A
+                    labNumbers = csvFile[' Sample No.'].str.replace("(A)", "")  # 替换A
                     labNumber += list(labNumbers)
                     # labNumber += list(csvFile[' Sample No.'])
                     qualityValue += list(csvFile[' Weight'])
@@ -1886,7 +1937,7 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                                         resultDcuFive[i]) + '\t' + str(resultDcuSix[i]) + '\n'
                                 fileTxt.write(lineTxt)
                         wb.SaveAs('%s\\%s\\SVHC %s' % (
-                        configContent['Reach_Result_Export_URL'], today, name.replace('.', '_')))
+                            configContent['Reach_Result_Export_URL'], today, name.replace('.', '_')))
                         n += 1
                     excel.Quit()
                     self.textBrowser.append("完成Reach结果转换为TXT")
@@ -2298,7 +2349,7 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                                         if 'Date-%s' % resultList[i] in resultRows.keys():  # 根据是否含有该索引填写日期
                                             ws.Cells(resultRows['Date-%s' % resultList[i]], c).Value = fileDate
                                         ws.Cells(resultRows['%s-%s' % (resultList[i], resultList2[i])], c).Value = \
-                                        resultList3[i]
+                                            resultList3[i]
                                     c += 1
                                 elif '/' in resultList[i] and '%s-%s' % (list1[0], resultList2[i]) in num:
                                     if '/' in resultList[i]:
@@ -2308,7 +2359,7 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                                         if '%s-Batch No' % spBatch[0] in resultRows.keys():  # 根据是否含有该索引Batch No
                                             ws.Cells(resultRows['%s-Batch No' % spBatch[0]], c).Value = spBatch[1]
                                         ws.Cells(resultRows['%s-%s' % (spBatch[0], resultList2[i])], c).Value = \
-                                        resultList3[i]
+                                            resultList3[i]
                                     c += 1
                     y += 1
                 self.textBrowser.append("完成QC填写")
@@ -2377,7 +2428,8 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                         filePath2 = configContent['ECO_Result_Export_URL'] + '\\' + today + '\\' + fileName
                         with open(filePath, "r", encoding="utf-8") as f1, open(filePath2, "w", encoding="utf-8") as f2:
                             for line in f1:
-                                oldStr = re.findall("\d{1,2}.\d{1,4}E.*\d{1,4} ug/l", line)
+                                # oldStr = re.findall("\d{1,2}.\d{1,4}E.*\d{1,4} ug/l", line)
+                                oldStr = re.findall(r"\d{1,2}.\d{1,4}E.*\d{1,4} ug/l", line)
                                 # print(line)
                                 # print(oldStr)
                                 if oldStr != []:
@@ -2476,7 +2528,9 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                     try:
                         csvFile = pd.read_csv(fileUrl, header=0, names=['A', 'B', 'C', 'D'])
                     except pd.errors.ParserError:
-                        QMessageBox.warning(self, "文件格式错误", "%s文件格式不正确，\n请调整成正确的文件格式后继续操作。" % fileUrl, QMessageBox.Yes)
+                        QMessageBox.warning(self, "文件格式错误",
+                                            "%s文件格式不正确，\n请调整成正确的文件格式后继续操作。" % fileUrl,
+                                            QMessageBox.Yes)
                         os.startfile(os.path.split(fileUrl)[0])
                         break
                     else:
@@ -2603,7 +2657,9 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                         csvFile = pd.read_csv(fileUrl, header=0,
                                               names=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])
                     except pd.errors.ParserError:
-                        QMessageBox.warning(self, "文件格式错误", "%s文件格式不正确，\n请调整成正确的文件格式后继续操作。" % fileUrl, QMessageBox.Yes)
+                        QMessageBox.warning(self, "文件格式错误",
+                                            "%s文件格式不正确，\n请调整成正确的文件格式后继续操作。" % fileUrl,
+                                            QMessageBox.Yes)
                         os.startfile(os.path.split(fileUrl)[0])
                         break
                     else:
@@ -2675,7 +2731,9 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                     csvFile = pd.read_csv(fileUrl, skip_blank_lines=False,
                                           names=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])
                 except pd.errors.ParserError:
-                    QMessageBox.warning(self, "文件格式错误", "%s文件格式不正确，\n请调整成正确的文件格式后继续操作。" % fileUrl, QMessageBox.Yes)
+                    QMessageBox.warning(self, "文件格式错误",
+                                        "%s文件格式不正确，\n请调整成正确的文件格式后继续操作。" % fileUrl,
+                                        QMessageBox.Yes)
                     os.startfile(os.path.split(fileUrl)[0])
                     break
                 else:
@@ -2696,7 +2754,8 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                         csvFile.iloc[2, 8] = '%s' % tep
                         csvFile.iloc[2, 9] = 0
                         csvFile.loc[len(csvFile)] = slopeData
-                        name, ok = QInputDialog.getText(self, '输入信息', '输入文件名', QLineEdit.Normal, '%s pH 3071' % nowTime)
+                        name, ok = QInputDialog.getText(self, '输入信息', '输入文件名', QLineEdit.Normal,
+                                                        '%s pH 3071' % nowTime)
                         if ok and tem:
                             fileName = configContent['pH2018_Result_Import_URL'] + '/' + name + '.csv'
                             i = 0
@@ -2749,7 +2808,8 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
         if m == 'Y':
             self.textBrowser_5.append("正在进行六价铬回收率计算")
             app.processEvents()
-            num, ok = QInputDialog.getDouble(self, '输入六价铬理论加标值', '输入六价铬理论加标值', 0.032, 0, 999999.000, 3)
+            num, ok = QInputDialog.getDouble(self, '输入六价铬理论加标值', '输入六价铬理论加标值', 0.032, 0, 999999.000,
+                                             3)
             if ok and num:
                 nNum = num
                 y = 1
@@ -2771,7 +2831,9 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                     try:
                         csvFile = pd.read_csv(fileUrl, header=0, names=['A', 'B', 'C', 'D'])
                     except pd.errors.ParserError:
-                        QMessageBox.warning(self, "文件格式错误", "%s文件格式不正确，\n请调整成正确的文件格式后继续操作。" % fileUrl, QMessageBox.Yes)
+                        QMessageBox.warning(self, "文件格式错误",
+                                            "%s文件格式不正确，\n请调整成正确的文件格式后继续操作。" % fileUrl,
+                                            QMessageBox.Yes)
                         os.startfile(os.path.split(fileUrl)[0])
                         break
                     else:
@@ -2979,7 +3041,8 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                                 self.lineEdit_5.setText("Reach 中文名:%s" % reachChinese[i])
                                 app.processEvents()
                 else:
-                    self.textBrowser_2.append("请确认查找Reach英文内容或者编号是否写对，\n当物质编号不为‘0’和物质内容不为空时，\n物质内容和编号要同时匹配才能查找Reach信息")
+                    self.textBrowser_2.append(
+                        "请确认查找Reach英文内容或者编号是否写对，\n当物质编号不为‘0’和物质内容不为空时，\n物质内容和编号要同时匹配才能查找Reach信息")
                     self.textBrowser_2.append('--------------------------')
                 self.lineEdit_6.setText("搜索完成")
 
@@ -3045,6 +3108,96 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
     def showTable(self):
         myTable.createTable()
         myTable.showMaximized()
+
+
+    def getTlimsBatchsUrl(self):
+        # 获取Tlims-Batch文件
+        batchFiles = QFileDialog.getOpenFileNames(self, '选择ICP-Batch文件',
+                                                  '%s' % configContent['TLims_Batch_Import_URL'],
+                                                  'CSV files(*.csv)')
+        self.filesUrls = batchFiles[0]
+        if self.filesUrls != []:
+            self.textBrowser_6.append('选中文件:')
+            self.textBrowser_6.append('\n'.join(self.filesUrls))
+            self.textBrowser_6.append('----------------------------------')
+        else:
+            self.textBrowser_6.append('无选中文件')
+            self.textBrowser_6.append('----------------------------------')
+        app.processEvents()
+        return self.filesUrls
+
+
+    # def getTlimsBatchsData(self):
+    #     # 获取batch data数据
+    #     if self.filesUrls != []:
+    #         # 自定义表头
+    #         headers = ['NO', 'Link To', 'Sample Id', 'QC Sample Type', 'Description', 'Lab Due date',
+    #                    'Request ID', 'QC batch', 'Spec Condition', 'Retest']
+    #         csv_file_oj = Tlims_Data()
+    #         batch_data = pd.DataFrame(columns=headers)
+    #         for file_url in self.filesUrls:
+    #             df_data = csv_file_oj.get_tlims_batch_data(file_url, headers)
+    #             batch_data = pd.concat([batch_data, df_data], ignore_index=True)
+    #         batch_data['ID'] = range(1, len(batch_data) + 1)
+    #         return batch_data
+    #     else:
+    #         self.textBrowser_6.append('无选中文件')
+    #         self.textBrowser_6.append('----------------------------------')
+    #     app.processEvents()
+
+
+    def exportTlimsBatch(self):
+        try:
+            if self.filesUrls != []:
+                name, ok = QInputDialog.getText(self, '输入信息', '输入文件名', QLineEdit.Normal)
+                csv_file_oj = Tlims_Data()
+                if self.checkBox_3.isChecked():
+                    quality_control_sample = self.lineEdit_3.text().split(';')
+                else:
+                    quality_control_sample = []
+                batchs_data = csv_file_oj.get_tlims_batchs_data(self.filesUrls, quality_control_sample)
+                batch_data = batchs_data[['Sample Id', 'ID']]
+                qc_num = self.spinBox_7.text()
+                qc_msg = self.lineEdit_7.text()
+                duplicate_check = self.checkBox.isChecked()
+                qc_check = self.checkBox_2.isChecked()
+                # 定义要插入的行
+                col_name_len = 1
+                if duplicate_check:
+                    new_row = pd.DataFrame(
+                        [{'Sample Id': qc_msg, 'ID': 'CC', 'Variable': 'C', 'Value': 1, 'F Sample Id': qc_msg}])
+                    num = 1
+                    col_name = []
+                    duplicate_com_list = self.lineEdit_2.text().split(';')
+                    col_name_len = int(len(duplicate_com_list))
+                    for col in duplicate_com_list:
+                        batch_data["A%s" % num] = None
+                        batch_data["A%s" % num] = col
+                        col_name.append("A%s" % num)
+                        num += 1
+                    duplicate_data = csv_file_oj.duplicate_data(batch_data, col_name)
+                else:
+                    new_row = pd.DataFrame(
+                        [{'Sample Id': qc_msg, 'ID': 'CC'}])
+                    duplicate_data = batch_data
+                # 是否添加QC
+                if qc_check:
+                    export_data = csv_file_oj.add_qc_data(duplicate_data, new_row, col_name_len, qc_num)
+                else:
+                    export_data = duplicate_data
+                export_data.to_csv('%s/%s-%s.csv' % (configContent['TLims_Batch_Export_URL'], name.capitalize(), today), index=False)
+                self.textBrowser_6.append('保存位置：%s' % configContent['TLims_Batch_Export_URL'])
+                self.textBrowser_6.append('----------------------------------')
+            else:
+                self.textBrowser_6.append('无选中文件')
+                self.textBrowser_6.append('----------------------------------')
+            app.processEvents()
+        except Exception as errorMsg:
+            self.textBrowser_6.append('错误信息：%s' % errorMsg)
+            self.textBrowser_6.append('----------------------------------')
+            app.processEvents()
+    def exportTlimsPhBatch(self):
+        pass
 
 
 class MyTableWindow(QMainWindow, Ui_TableWindow):
