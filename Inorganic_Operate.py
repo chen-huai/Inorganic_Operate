@@ -3200,102 +3200,107 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
             self.textBrowser_6.append('----------------------------------')
             app.processEvents()
     def exportTlimsPhBatch(self):
-        if self.filesUrls != []:
-            name, ok = QInputDialog.getText(self, '输入信息', '输入文件名', QLineEdit.Normal)
-            project_items = ["ph3071", "ph4045", "phaatcc"]
-            project_name, ok2 = QInputDialog.getItem(None, "请选择一个测试项目", "请选择一个测试项目:", project_items, 0, True)
-            star_num, ok3 = QInputDialog.getInt(None, "请输入起始数字", "请输入起始数字:", 1)
-            csv_file_oj = Tlims_Data()
-            # ph无需特殊质控
-            quality_control_sample = []
-            batchs_data = csv_file_oj.get_tlims_batchs_data(self.filesUrls, int(star_num), quality_control_sample)
-            batch_data = batchs_data[['Sample Id', 'ID']]
-            qc_num = self.spinBox_7.text()
-            # 定义要插入的行
-            col_name_len = 1
-            # PH特殊方法重复
-            if '3071' in project_name:
-                duplicate_com_list = ['', 'A', 'B']
-                head_data = {
-                    'A': ['pH cal', 'pH Measure', 'pH Measure', 'pH Measure'],
-                    'B': [1, 1, 1, 1],
-                    'C': ['Standard', 'CC', 'BLK', 'BLK'],
-                    'D': ['', 'QC', 'Before', 'After'],
-                    'E': ['', '', '', ''],
-                    'F': ['', '', '', ''],
-                    'G': ['', '', '', ''],
-                    'H': ['', '', '', ''],
-                    'I': ['', '', '', ''],
-                    'J': ['', '', '', ''],
-                    'K': [1, 1, 1, 1],
-                }
-                head_data_df = pd.DataFrame(head_data)
-                end_data = {
-                    'A': ['pH Measure'],
-                    'B': [1],
-                    'C': ['DI'],
-                    'D': ['Water'],
-                    'E': [''],
-                    'F': [''],
-                    'G': [''],
-                    'H': [''],
-                    'I': [''],
-                    'J': [''],
-                    'K': [1],
-                }
-                end_data_df = pd.DataFrame(end_data)
-            else:
-                duplicate_com_list = ['A', 'B', 'C', 'D']
-                head_data = {
-                    'A': ['pH Measure'],
-                    'B': [1],
-                    'C': ['BLK'],
-                    'D': [4045],
-                    'E': [''],
-                    'F': [''],
-                    'G': [''],
-                    'H': [''],
-                    'I': [''],
-                    'J': [''],
-                    'K': [1],
-                }
-                head_data_df = pd.DataFrame(head_data)
-                end_data_df = pd.DataFrame()
-            num = 1
-            col_name = []
-            col_name_len = int(len(duplicate_com_list))
-            for col in duplicate_com_list:
-                batch_data["A%s" % num] = None
-                batch_data["A%s" % num] = col
-                col_name.append("A%s" % num)
-                num += 1
-            duplicate_data = csv_file_oj.duplicate_data(batch_data, col_name)
-            # 转化成PH所需的数据格式
+        try:
+            if self.filesUrls != []:
+                name, ok = QInputDialog.getText(self, '输入信息', '输入文件名', QLineEdit.Normal)
+                project_items = ["pH 3071", "pH 4045", "pH AATCC"]
+                project_name, ok2 = QInputDialog.getItem(None, "请选择一个测试项目", "请选择一个测试项目:", project_items, 0, True)
+                star_num, ok3 = QInputDialog.getInt(None, "请输入起始数字", "请输入起始数字:", 1)
+                csv_file_oj = Tlims_Data()
+                # ph无需特殊质控
+                quality_control_sample = []
+                batchs_data = csv_file_oj.get_tlims_batchs_data(self.filesUrls, int(star_num), quality_control_sample)
+                batch_data = batchs_data[['Sample Id', 'ID']]
+                qc_num = self.spinBox_7.text()
+                # 定义要插入的行
+                col_name_len = 1
+                # PH特殊方法重复
+                if '3071' in project_name:
+                    duplicate_com_list = ['', 'A', 'B']
+                    head_data = {
+                        'A': ['pH cal', 'pH Measure', 'pH Measure', 'pH Measure'],
+                        'B': [1, 1, 1, 1],
+                        'C': ['Standard', 'CC', 'BLK', 'BLK'],
+                        'D': ['', 'QC', 'Before', 'After'],
+                        'E': ['', '', '', ''],
+                        'F': ['', '', '', ''],
+                        'G': ['', '', '', ''],
+                        'H': ['', '', '', ''],
+                        'I': ['', '', '', ''],
+                        'J': ['', '', '', ''],
+                        'K': [1, 1, 1, 1],
+                    }
+                    head_data_df = pd.DataFrame(head_data)
+                    end_data = {
+                        'A': ['pH Measure'],
+                        'B': [1],
+                        'C': ['DI'],
+                        'D': ['Water'],
+                        'E': [''],
+                        'F': [''],
+                        'G': [''],
+                        'H': [''],
+                        'I': [''],
+                        'J': [''],
+                        'K': [1],
+                    }
+                    end_data_df = pd.DataFrame(end_data)
+                else:
+                    duplicate_com_list = ['A', 'B', 'C', 'D']
+                    head_data = {
+                        'A': ['pH Measure'],
+                        'B': [1],
+                        'C': ['BLK'],
+                        'D': [4045],
+                        'E': [''],
+                        'F': [''],
+                        'G': [''],
+                        'H': [''],
+                        'I': [''],
+                        'J': [''],
+                        'K': [1],
+                    }
+                    head_data_df = pd.DataFrame(head_data)
+                    end_data_df = pd.DataFrame()
+                num = 1
+                col_name = []
+                col_name_len = int(len(duplicate_com_list))
+                for col in duplicate_com_list:
+                    batch_data["A%s" % num] = None
+                    batch_data["A%s" % num] = col
+                    col_name.append("A%s" % num)
+                    num += 1
+                duplicate_data = csv_file_oj.duplicate_data(batch_data, col_name)
+                # 转化成PH所需的数据格式
 
-            data_len = int(len(list(duplicate_data['ID'])))
-            duplicate_data['item'] = [project_name] * data_len
-            duplicate_data['num'] = duplicate_data['item'] + '-' +duplicate_data['ID'].astype('str')
-            ph_data = pd.DataFrame({'A': ['pH Measure']*data_len, 'B': [1]*data_len, 'C': list(duplicate_data['num']), 'D': list(duplicate_data['F Sample Id']), 'E': None, 'F': None, 'G': None, 'H': None,
-                  'I': None, 'J': None, 'K': [1]*data_len})
-            # qc专用
-            new_row = pd.DataFrame(
-                [{'A': 'pH Measure', 'B': 1, 'C': 'CC', 'D': 'QC', 'E': None, 'F': None, 'G': None, 'H': None,
-                  'I': None, 'J': None, 'K': 1}])
-            # 添加QC
-            export_data = csv_file_oj.add_qc_data(ph_data, new_row, col_name_len, qc_num)
-            # 添加开头和结尾
-            if star_num == 1:
-                export_data = pd.concat([head_data_df, export_data, end_data_df], ignore_index=True)
+                data_len = int(len(list(duplicate_data['ID'])))
+                duplicate_data['item'] = [project_name] * data_len
+                duplicate_data['num'] = duplicate_data['item'] + '-' +duplicate_data['ID'].astype('str')
+                ph_data = pd.DataFrame({'A': ['pH Measure']*data_len, 'B': [1]*data_len, 'C': list(duplicate_data['num']), 'D': list(duplicate_data['F Sample Id']), 'E': None, 'F': None, 'G': None, 'H': None,
+                      'I': None, 'J': None, 'K': [1]*data_len})
+                # qc专用
+                new_row = pd.DataFrame(
+                    [{'A': 'pH Measure', 'B': 1, 'C': 'CC', 'D': 'QC', 'E': None, 'F': None, 'G': None, 'H': None,
+                      'I': None, 'J': None, 'K': 1}])
+                # 添加QC
+                export_data = csv_file_oj.add_qc_data(ph_data, new_row, col_name_len, qc_num)
+                # 添加开头和结尾
+                if star_num == 1:
+                    export_data = pd.concat([head_data_df, export_data, end_data_df], ignore_index=True)
+                else:
+                    export_data = export_data
+                file_name = '%s/%s-%s.csv' % (configContent['TLims_Batch_Export_URL'], name.capitalize(), today)
+                export_data.to_csv(file_name, index=False, header=None, mode='a')
+                self.textBrowser_6.append('保存文件：%s' % file_name)
+                self.textBrowser_6.append('----------------------------------')
             else:
-                export_data = export_data
-            file_name = '%s/%s-%s.csv' % (configContent['TLims_Batch_Export_URL'], name.capitalize(), today)
-            export_data.to_csv(file_name, index=False, header=None, mode='a')
-            self.textBrowser_6.append('保存文件：%s' % file_name)
+                self.textBrowser_6.append('无选中文件')
+                self.textBrowser_6.append('----------------------------------')
+            app.processEvents()
+        except Exception as errorMsg:
+            self.textBrowser_6.append('错误信息：%s' % errorMsg)
             self.textBrowser_6.append('----------------------------------')
-        else:
-            self.textBrowser_6.append('无选中文件')
-            self.textBrowser_6.append('----------------------------------')
-        app.processEvents()
+            app.processEvents()
 
 
 class MyTableWindow(QMainWindow, Ui_TableWindow):
