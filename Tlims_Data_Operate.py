@@ -10,7 +10,7 @@ class Tlims_Data():
         df_data = df.iloc[12:]
         return df_data
 
-    def get_tlims_batchs_data(self, files_url, quality_control_sample):
+    def get_tlims_batchs_data(self, files_url, star_num, quality_control_sample):
         # 获取batch data数据
         # 自定义表头
         headers = ['NO', 'Link To', 'Sample Id', 'QC Sample Type', 'Description', 'Lab Due date',
@@ -20,7 +20,7 @@ class Tlims_Data():
         for file_url in files_url:
             df_data = self.get_tlims_batch_data(file_url, headers)
             batch_data = pd.concat([batch_data, df_data], ignore_index=True)
-        batch_data['ID'] = range(1, len(batch_data) + 1)
+        batch_data['ID'] = range(star_num, len(batch_data) + star_num)
         return batch_data
 
     def duplicate_data(self, dataframe_data, col_name):
