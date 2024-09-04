@@ -7,7 +7,7 @@ class Tlims_Data():
         # 通过路径获取数据
         # df = pd.read_csv(file_url)
         df = pd.read_csv(file_url, header=None, names=headers)
-        df_data = df.iloc[12:]
+        df_data = df.iloc[11:]
         return df_data
 
     def get_tlims_batchs_data(self, files_url, star_num, quality_control_sample):
