@@ -1331,15 +1331,16 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                     file = open('%s/Cr VI %s.txt' % (configContent['UV_Batch_Export_URL'], today), 'a+')
                     file.write('%s\n' % each)
                     file.write('%s-D\n' % each)
+                    file.write('%s-S\n' % each)
                     n += 1
                     if n % 20 == 0:
                         file.write('CQC\n')
                 if n % 20 != 0:
                     file.write('CQC\n')
-                # 添加样品加标
-                for each in labNumber:
-                    file = open('%s/Cr VI %s.txt' % (configContent['UV_Batch_Export_URL'], today), 'a+')
-                    file.write('%s-S\n' % each)
+                # # 添加样品加标
+                # for each in labNumber:
+                #     file = open('%s/Cr VI %s.txt' % (configContent['UV_Batch_Export_URL'], today), 'a+')
+                #     file.write('%s-S\n' % each)
                 file.write('CQC\n')
             self.textBrowser_4.append("完成样品单号Cr VI-Batch")
             self.textBrowser_4.append("生成路径：%s" % configContent['UV_Batch_Export_URL'])
